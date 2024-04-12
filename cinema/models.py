@@ -15,11 +15,10 @@ class User(models.Model):
 
 class Movie(models.Model):
     movie_id = models.IntegerField(auto_created=True, primary_key=True)
-    movie_name = models.CharField(max_length=30, unique=True)
-    director = models.CharField(max_length=30)
-    starring = models.CharField(max_length=30)
-    cover_image = models.ImageField()
-    release_date = models.DateField()
+    movie_name = models.CharField(max_length=20, unique=True)
+    starring = models.CharField(max_length=50)
+    release_datetime = models.CharField(max_length=50)
+    score = models.CharField(max_length=10)
 
 class ScreeningRoom(models.Model):
     room_id = models.IntegerField(auto_created=True, primary_key=True)
