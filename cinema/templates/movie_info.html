@@ -7,6 +7,8 @@
 <body>
     <h2>电影详情</h2>
     <hr>
+    {% load static %}
+    <img src="{% static movie.img %}">
     <div>
         <p>电影名称: {{ movie.movie_name }}</p>
         <p>主演: {{ movie.starring }}</p>

@@ -19,6 +19,7 @@ class Movie(models.Model):
     starring = models.CharField(max_length=50)
     release_datetime = models.CharField(max_length=50)
     score = models.CharField(max_length=10)
+    img = models.CharField(max_length=255, default='')
 
 class ScreeningRoom(models.Model):
     room_id = models.IntegerField(auto_created=True, primary_key=True)

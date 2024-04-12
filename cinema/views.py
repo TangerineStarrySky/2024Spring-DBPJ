@@ -1,11 +1,12 @@
-import os
 
 from django.shortcuts import render
 from cinema.models import *
 from django.http import HttpResponse
-from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
+def welcome(request):
+    return render(request, 'welcome.html')
+
 def index(request):
     return render(request, 'index.html')
 
@@ -27,8 +28,8 @@ def add_movies(request):
     movies = maoyanTop100()
     print(movies)
     for movie in movies:
-        Movie.objects.create(movie_id=movie[0], movie_name=movie[1], starring=movie[2], release_datetime=movie[3],
-                             score=movie[4])
+        Movie.objects.create(movie_id=movie[0], movie_name=movie[2], starring=movie[3], release_datetime=movie[4],
+                             score=movie[5], img=movie[1])
     return HttpResponse('100条电影数据添加成功！')
 
 # 爬取猫眼Top100电影数据
@@ -49,10 +50,15 @@ def maoyanTop100():
 
         for movie in movies:
             id += 1
+            imgurl = movie.find('img', class_='board-img')['data-src']
             info = movie.find('div', class_='movie-item-info')
             name = info.find('p', class_='name').get_text()
             star = info.find('p', class_='star').get_text().replace('主演：', '').strip()
             release_time = info.find('p', class_='releasetime').get_text().replace('上映时间：', '').strip()
             score = movie.find('p', class_='score').get_text()
-            movies_info.append([id, name, star, release_time, score])
+            imgaddr = 'uploads/' + imgurl.split('/')[4].split('.')[0] + '.jpg'
+            with open(f'static/{imgaddr}', 'wb') as f:
+                imgcontent = requests.get(imgurl, headers=headers).content
+                f.write(imgcontent)
+            movies_info.append([id, imgaddr, name, star, release_time, score])
     return movies_info

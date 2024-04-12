@@ -8,7 +8,7 @@
     <h3>电影列表</h3>
     <hr>
 
-    <ul>
+    <ol>
         {% for movie in movies %}
             <li>
                 <a href="/cinema/movieinfo/{{ movie.movie_id }}">
@@ -16,7 +16,7 @@
                 </a>
             </li>
         {% endfor %}
-    </ul>
+    </ol>
 
 </body>
 </html>
