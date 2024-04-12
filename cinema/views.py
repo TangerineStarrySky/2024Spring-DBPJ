@@ -1,5 +1,9 @@
+from datetime import date
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
+from cinema.forms import *
 from cinema.models import *
 from django.http import HttpResponse
 
@@ -62,3 +66,26 @@ def maoyanTop100():
                 f.write(imgcontent)
             movies_info.append([id, imgaddr, name, star, release_time, score])
     return movies_info
+
+
+def handle_registration(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        User.objects.count()
+        User.objects.create(
+            name=form.data['name'],
+            sex=form.data['gender'] == 'male',
+            age=form.data['age'],
+            phone=form.data['contact'],
+            username=form.data['username'],
+            password=form.data['password'],
+            register_date=date.today()
+        )
+        return redirect(reverse('index'))
+    else:
+        form = RegistrationForm()
+    return render(request, 'welcome.html', {'form': form})
+
+
+def login():
+    pass

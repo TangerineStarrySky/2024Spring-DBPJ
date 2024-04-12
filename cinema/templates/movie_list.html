@@ -11,7 +11,7 @@
     <ol>
         {% for movie in movies %}
             <li>
-                <a href="/cinema/movieinfo/{{ movie.movie_id }}">
+                <a href="{% url 'movieinfo' movie.movie_id %}">
                     {{ movie.movie_name }}
                 </a>
             </li>

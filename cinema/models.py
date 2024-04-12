@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    user_id = models.IntegerField(auto_created=True, primary_key=True)
+    user_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30, unique=True)
     age = models.IntegerField(null=True)
     sex = models.BooleanField(default=True)
@@ -14,7 +14,7 @@ class User(models.Model):
 
 
 class Movie(models.Model):
-    movie_id = models.IntegerField(auto_created=True, primary_key=True)
+    movie_id = models.AutoField(primary_key=True)
     movie_name = models.CharField(max_length=20, unique=True)
     starring = models.CharField(max_length=50)
     release_datetime = models.CharField(max_length=50)
@@ -22,12 +22,12 @@ class Movie(models.Model):
     img = models.CharField(max_length=255, default='')
 
 class ScreeningRoom(models.Model):
-    room_id = models.IntegerField(auto_created=True, primary_key=True)
+    room_id = models.AutoField(primary_key=True)
     room_name = models.CharField(max_length=30, unique=True)
     seats = models.IntegerField()
 
 class Ticket(models.Model):
-    ticket_id = models.IntegerField(auto_created=True, primary_key=True)
+    ticket_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField()
     movie_id = models.IntegerField()
     room_id = models.IntegerField()

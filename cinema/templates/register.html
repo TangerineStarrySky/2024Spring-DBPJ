@@ -1,10 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>用户注册</title>
+    <title>注册页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 50px auto;
+        }
+        .fieldWrapper {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensure padding does not affect overall width */
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <p>用户注册界面</p>
+    <h2 align="center">注册新账户</h2>
+    <form id="registrationForm" method="post">
+        {% csrf_token %}
+        <div class="fieldWrapper">
+            <label for="name">姓名:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="fieldWrapper">
+            <label for="gender">性别:</label>
+            <select id="gender" name="gender" required>
+                <option value="">请选择性别</option>
+                <option value="male">男</option>
+                <option value="female">女</option>
+            </select>
+        </div>
+        <div class="fieldWrapper">
+            <label for="age">年龄:</label>
+            <input type="number" id="age" name="age" required min="1">
+        </div>
+        <div class="fieldWrapper">
+            <label for="contact">联系方式:</label>
+            <input type="text" id="contact" name="contact" required pattern="[0-9]{11}">
+        </div>
+        <div class="fieldWrapper">
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" required maxlength="20">
+        </div>
+        <div class="fieldWrapper">
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" required minlength="2" maxlength="16">
+        </div>
+        <div class="fieldWrapper">
+            <label for="confirmPassword">确认密码:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required minlength="2" maxlength="16">
+        </div>
+        <div class="error" id="passwordMismatchError"></div>
+        <button type="submit">注册</button>
+    </form>
+    <script>
+        // JavaScript 代码用于检查两次输入的密码是否一致
+        document.getElementById('registrationForm').onsubmit = function(event) {
+            let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                event.preventDefault(); // 阻止表单提交
+                document.getElementById('passwordMismatchError').textContent = '两次输入的密码不一致，请重新输入。';
+            }
+        };
+    </script>
 </body>
 </html>
