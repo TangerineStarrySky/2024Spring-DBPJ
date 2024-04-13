@@ -12,7 +12,7 @@
         {% for movie in movies %}
             <li>
                 <a href="{% url 'movieinfo' movie.movie_id %}">
-                    {{ movie.movie_name }}
+                    {{ movie.movie_name }} - {{ movie.starring }}
                 </a>
             </li>
         {% endfor %}

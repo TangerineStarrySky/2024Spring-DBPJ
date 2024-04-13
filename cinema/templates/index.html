@@ -7,7 +7,10 @@
 <body>
     <h2>视成影院</h2>
     <hr>
+    <h3>用户名：{{ user.username }}</h3>
+
     <a href="{% url 'movies' %}">显示所有电影</a>
+    <a href="{% url 'history' user.user_id %}">历史订单</a>
 
 
     {% if messages %}

@@ -17,7 +17,8 @@ def welcome(request):
 
 def index(request):
     user_id = request.GET.get('user_id', None)
-    return render(request, 'index.html', {'user_id': user_id})
+    user = User.objects.filter(pk=user_id).first()
+    return render(request, 'index.html', {'user': user})
 
 
 def login(request):
@@ -28,14 +29,23 @@ def register(request):
     return render(request, 'register.html')
 
 
-def show_movies(request):
+def show_movies(request, user_id):
     movies = Movie.objects.all()
-    return render(request, 'movie_list.html', {'movies': movies})
+    return render(request, 'movie_list.html', {'movies': movies, 'user_id': user_id})
 
 
-def show_movie_info(request, movie_id):
+def show_movie_info(request, movie_id, user_id):
     movie = Movie.objects.filter(pk=movie_id).first()
-    return render(request, 'movie_info.html', {'movie': movie})
+    return render(request, 'movie_info.html', {'movie': movie, 'user_id': user_id})
+
+
+def show_rooms(request, movie_id, user_id):
+    return render(request, 'room_info.html', {'movie_id': movie_id, 'user_id': user_id})
+
+
+def pay(request, movie_id, user_id, room_id):
+    # 建立订单对象
+    return render(request, 'pay.html', {'movie_id': movie_id, 'user_id': user_id, 'room_id': room_id})
 
 
 def add_movies(request):
@@ -111,3 +121,7 @@ def handle_login(request):
         else:
             messages.error(request, '用户名或密码错误，登录失败！')
     return redirect(reverse('welcome'))
+
+
+def history(request, user_id):
+    pass

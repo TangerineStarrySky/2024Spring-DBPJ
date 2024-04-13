@@ -9,7 +9,7 @@ class User(models.Model):
     name = models.CharField(max_length=30, unique=True)
     age = models.IntegerField(null=True, blank=True)
     sex = models.BooleanField(default=True)
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, null=True, blank=True)
     username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=20)
     register_date = models.DateField()
@@ -35,7 +35,8 @@ class Ticket(models.Model):
     user_id = models.IntegerField()
     movie_id = models.IntegerField()
     room_id = models.IntegerField()
-    showtime = models.TimeField()
+    showtime = models.CharField(max_length=50)
+    paytime = models.CharField(max_length=50, default='')
     price = models.IntegerField()
     seat_id = models.IntegerField()
     evaluation = models.IntegerField(
