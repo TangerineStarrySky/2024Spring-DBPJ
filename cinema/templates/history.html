@@ -17,10 +17,14 @@
                     <p>订单状态：
                     {% if info.status %}
                         <span>已支付</span>
-                        {% if info.evaluation != -1 %}
-                            <span>已评价</span>
+                        {% if not info.refundable %}
+                            {% if info.evaluation != -1 %}
+                                <span>已评价</span>
+                            {% else %}
+                                <a href="{% url 'valuation' info.ticket_id %}">评价</a>
+                            {% endif %}
                         {% else %}
-                            <a href="{% url 'valuation' info.ticket_id %}">评价</a>
+                            <a href="{% url 'refund' info.ticket_id %}">退票</a>
                         {% endif %}
                     {% else %}
                         <span>已撤销</span>

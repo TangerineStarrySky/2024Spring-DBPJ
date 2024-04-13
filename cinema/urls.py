@@ -26,4 +26,6 @@ urlpatterns = [
     path('valuation/<int:ticket_id>/', valuation, name='valuation'),
     path('submit_rating/<int:ticket_id>', submit_rating, name='submit_rating'),
 
+    path('refund/<int:ticket_id>', refund, name='refund'),
+
 ]

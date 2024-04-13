@@ -1,6 +1,5 @@
-from datetime import date
+from datetime import date, datetime, timezone
 import time
-
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -166,10 +165,22 @@ def history(request, user_id):
     infos = []
     for ticket in tickets:
         moviename = Movie.objects.get(pk=ticket.movie_id).movie_name
+
+        # 给定的日期字符串
+        date_string = ticket.showtime
+        # 将字符串转换为datetime对象，注意这里需要指定日期格式
+        date_format = "%Y-%m-%d %H:%M:%S"
+        datetime_obj = datetime.strptime(date_string, date_format)
+        # 将datetime对象转换为时间戳（秒）
+        timestamp = datetime_obj.timestamp()
+        refundable = True
+        if time.time() > timestamp:
+            refundable = False
+
         infos.append({
             'ticket_id': ticket.ticket_id,
             'paytime': ticket.paytime,
-            'showtime': ticket.showtime,
+            'refundable': refundable,
             'status': ticket.paystatus,
             'movie': moviename,
             'price': ticket.price,
@@ -193,4 +204,12 @@ def submit_rating(request, ticket_id):
         ticket.evaluation = rating
         ticket.save()
         messages.success(request, '评价成功！')
+    return redirect(reverse('index') + f'?user_id={ticket.user_id}')
+
+
+def refund(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id)
+    ticket.paystatus = False
+    ticket.save()
+    messages.success(request, '退票成功！')
     return redirect(reverse('index') + f'?user_id={ticket.user_id}')
