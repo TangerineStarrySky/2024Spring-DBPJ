@@ -9,5 +9,13 @@
     <hr>
     <a href="{% url 'movies' %}">显示所有电影</a>
 
+
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        </script>
+    {% endif %}
 </body>
 </html>

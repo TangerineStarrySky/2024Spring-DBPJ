@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -8,25 +9,34 @@ from cinema.models import *
 from django.http import HttpResponse
 
 # Create your views here.
+
+
 def welcome(request):
     return render(request, 'welcome.html')
 
+
 def index(request):
-    return render(request, 'index.html')
+    user_id = request.GET.get('user_id', None)
+    return render(request, 'index.html', {'user_id': user_id})
+
 
 def login(request):
     return render(request, 'login.html')
 
+
 def register(request):
     return render(request, 'register.html')
+
 
 def show_movies(request):
     movies = Movie.objects.all()
     return render(request, 'movie_list.html', {'movies': movies})
 
+
 def show_movie_info(request, movie_id):
     movie = Movie.objects.filter(pk=movie_id).first()
     return render(request, 'movie_info.html', {'movie': movie})
+
 
 def add_movies(request):
     movies = maoyanTop100()
@@ -35,6 +45,7 @@ def add_movies(request):
         Movie.objects.create(movie_id=movie[0], movie_name=movie[2], starring=movie[3], release_datetime=movie[4],
                              score=movie[5], img=movie[1])
     return HttpResponse('100条电影数据添加成功！')
+
 
 # 爬取猫眼Top100电影数据
 def maoyanTop100():
@@ -71,7 +82,6 @@ def maoyanTop100():
 def handle_registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-        User.objects.count()
         User.objects.create(
             name=form.data['name'],
             sex=form.data['gender'] == 'male',
@@ -81,11 +91,23 @@ def handle_registration(request):
             password=form.data['password'],
             register_date=date.today()
         )
-        return redirect(reverse('index'))
+        user = User.objects.filter(username=form.data['username']).first()
+        messages.success(request, '注册成功！')
+        return redirect(reverse('index') + f'?user_id={user.user_id}')
     else:
-        form = RegistrationForm()
-    return render(request, 'welcome.html', {'form': form})
+        messages.error(request, '注册失败！')
+    return redirect(reverse('welcome'))
 
 
-def login():
-    pass
+def handle_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        username = form.data['username']
+        password = form.data['password']
+        user = User.objects.filter(username=username,password=password).first()
+        if user is not None:
+            messages.success(request, '登录成功！')
+            return redirect(reverse('index') + f'?user_id={user.user_id}')
+        else:
+            messages.error(request, '用户名或密码错误，登录失败！')
+    return redirect(reverse('welcome'))

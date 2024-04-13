@@ -10,5 +10,12 @@
     <a href="{% url 'register' %}">用户注册</a>
     <a href="{% url 'login' %}">用户登录</a>
 
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        </script>
+    {% endif %}
 </body>
 </html>

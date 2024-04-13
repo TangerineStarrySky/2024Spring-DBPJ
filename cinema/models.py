@@ -2,12 +2,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 # Create your models here.
+
+
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30, unique=True)
-    age = models.IntegerField(null=True)
+    age = models.IntegerField(null=True, blank=True)
     sex = models.BooleanField(default=True)
-    phone = models.CharField(max_length=20, null=True)
+    phone = models.CharField(max_length=20)
     username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=20)
     register_date = models.DateField()
@@ -19,12 +21,14 @@ class Movie(models.Model):
     starring = models.CharField(max_length=50)
     release_datetime = models.CharField(max_length=50)
     score = models.CharField(max_length=10)
-    img = models.CharField(max_length=255, default='')
+    img = models.CharField(max_length=255)
+
 
 class ScreeningRoom(models.Model):
     room_id = models.AutoField(primary_key=True)
     room_name = models.CharField(max_length=30, unique=True)
     seats = models.IntegerField()
+
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True)
