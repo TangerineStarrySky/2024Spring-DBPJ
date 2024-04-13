@@ -16,7 +16,7 @@
         <p>网络评分: {{ movie.score }}</p>
 
     </div>
-    <a href="{% url  %}">购票：</a>
+    <a href="{% url 'rooms' user_id movie.movie_id %}">购票</a>
 
 </body>
 </html>

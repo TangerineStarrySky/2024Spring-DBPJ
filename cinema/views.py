@@ -1,4 +1,5 @@
 from datetime import date
+import time
 
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -7,6 +8,7 @@ from django.urls import reverse
 from cinema.forms import *
 from cinema.models import *
 from django.http import HttpResponse
+
 
 # Create your views here.
 
@@ -34,19 +36,50 @@ def show_movies(request, user_id):
     return render(request, 'movie_list.html', {'movies': movies, 'user_id': user_id})
 
 
-def show_movie_info(request, movie_id, user_id):
+def show_movie_info(request, user_id, movie_id):
     movie = Movie.objects.filter(pk=movie_id).first()
     return render(request, 'movie_info.html', {'movie': movie, 'user_id': user_id})
 
 
-def show_rooms(request, movie_id, user_id):
-    return render(request, 'room_info.html', {'movie_id': movie_id, 'user_id': user_id})
+def show_rooms(request, user_id, movie_id):
+    rooms = ScreeningRoom.objects.all()
+    return render(request, 'room_info.html', {'rooms': rooms, 'movie_id': movie_id, 'user_id': user_id})
 
 
-def pay(request, movie_id, user_id, room_id):
-    # 建立订单对象
-    return render(request, 'pay.html', {'movie_id': movie_id, 'user_id': user_id, 'room_id': room_id})
+def buy(request, user_id, movie_id, room_id):
+    user = User.objects.filter(pk=user_id).first()
+    movie = Movie.objects.filter(pk=movie_id).first()
+    room = ScreeningRoom.objects.filter(pk=room_id).first()
+    timestamp = int(time.time())
+    next_1h = timestamp - timestamp % 3600 + 3600  # 下一个1小时整的时间戳
+    ticket, created = Ticket.objects.get_or_create(
+        user_id=user_id,
+        movie_id=movie_id,
+        room_id=room_id,
+        paytime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(timestamp)),
+        showtime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(next_1h)),
+        price=room.price,
+        seat_id=-1,  # 未选座
+        evaluation=-1  # 未评分
+    )
+    return render(request, 'buy.html', {'ticket': ticket, 'movie': movie, 'user': user, 'room': room})
 
+
+def confirm_purchase(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id)
+    if request.method == 'POST':
+        form = SeatSelectionForm(request.POST)
+        selection = form.data['seat_selection']
+        conflict_ticket = Ticket.objects.filter(room_id=ticket.room_id, movie_id=ticket.movie_id,
+                                                showtime=ticket.showtime, paystatus=True, seat_id=selection).first()
+        if conflict_ticket is None:
+            ticket.seat_id = selection
+            ticket.paystatus = True
+            ticket.save()
+            messages.success(request, '购票成功！')
+        else:
+            messages.error(request, '所选座位不可用! 购票失败！')
+    return redirect(reverse('index') + f'?user_id={ticket.user_id}')
 
 def add_movies(request):
     movies = maoyanTop100()
@@ -114,7 +147,7 @@ def handle_login(request):
         form = LoginForm(request.POST)
         username = form.data['username']
         password = form.data['password']
-        user = User.objects.filter(username=username,password=password).first()
+        user = User.objects.filter(username=username, password=password).first()
         if user is not None:
             messages.success(request, '登录成功！')
             return redirect(reverse('index') + f'?user_id={user.user_id}')
@@ -124,4 +157,4 @@ def handle_login(request):
 
 
 def history(request, user_id):
-    pass
+    return HttpResponse('hhh')

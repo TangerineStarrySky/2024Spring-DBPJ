@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>订单确认</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .order-details {
+            margin-bottom: 20px;
+        }
+        .order-item {
+            margin-bottom: 10px;
+        }
+        .order-item label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        .order-item span {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .ticket-info {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .ticket-info h3 {
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="number"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>订单确认及选座</h1>
+        <div class="order-details">
+            <div class="order-item">
+                <label>电影名称:</label><span>{{ movie.movie_name }}</span>
+            </div>
+            <div class="order-item">
+                <label>放映时间:</label><span>{{ ticket.showtime }}</span>
+            </div>
+            <div class="order-item">
+                <label>影厅名称:</label><span>{{ room.room_name }}</span>
+            </div>
+            <div class="order-item">
+                <label>票价:</label><span>￥{{ room.price }}</span>
+            </div>
+            <div class="ticket-info">
+                <h3>票务信息</h3>
+                <p>订单号: {{ ticket.ticket_id }}</p>
+                <p>购买用户: {{ user.username }}</p>
+                <p>购票时间: {{ ticket.paytime }}</p>
+            </div>
+
+            <form id="seat-selection-form" method="post" action="{% url 'confirm_purchase' ticket.ticket_id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="seat-number">选择座位（1 ~ {{ room.seats }}）: </label>
+                    <input type="number" id="seat-number" name="seat_selection" min="1" max="{{ room.seats }}" step="1" required>
+                </div>
+                <button type="submit">确认购买</button>
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

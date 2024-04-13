@@ -16,9 +16,9 @@ urlpatterns = [
 
 
     path('movies/<int:user_id>/', show_movies, name='movies'),
-    path('movieinfo/<int:movie_id>/<int:user_id>/', show_movie_info, name='movieinfo'),
-    path('rooms/<int:movie_id>/<int:user_id>/', show_rooms, name='rooms'),
-    path('pay/<int:movie_id>/<int:user_id>/<int:room_id>/', pay, name='pay'),
-
+    path('movieinfo/<int:user_id>/<int:movie_id>/', show_movie_info, name='movieinfo'),
+    path('rooms/<int:user_id>/<int:movie_id>/', show_rooms, name='rooms'),
+    path('buy/<int:user_id>/<int:movie_id>/<int:room_id>/', buy, name='buy'),
+    path('confirm_purchase/<int:ticket_id>/', confirm_purchase, name='confirm_purchase'),
 
 ]

@@ -28,7 +28,7 @@ class ScreeningRoom(models.Model):
     room_id = models.AutoField(primary_key=True)
     room_name = models.CharField(max_length=30, unique=True)
     seats = models.IntegerField()
-
+    price = models.IntegerField(default=100)
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True)
@@ -36,13 +36,14 @@ class Ticket(models.Model):
     movie_id = models.IntegerField()
     room_id = models.IntegerField()
     showtime = models.CharField(max_length=50)
-    paytime = models.CharField(max_length=50, default='')
+    paytime = models.CharField(max_length=50)
     price = models.IntegerField()
     seat_id = models.IntegerField()
+    paystatus = models.BooleanField(default=False)  # 订单支付状态
     evaluation = models.IntegerField(
         null=True,
         validators=[
-            MinValueValidator(0),
+            MinValueValidator(-1),  # -1表示未评分
             MaxValueValidator(10)
         ]
     )

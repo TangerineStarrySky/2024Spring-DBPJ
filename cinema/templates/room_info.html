@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>放映厅信息</title>
 </head>
 <body>
-
+    <h2>放映厅信息</h2>
+    <hr>
+    <ul>
+        {% for room in rooms %}
+            <li>
+                <p>放映厅名称: {{ room.room_name }}</p>
+                <p>座位数: {{ room.seats }}</p>
+                <p>价格: {{ room.price }} 元</p>
+                <a href="{% url 'buy' user_id movie_id room.room_id %}">购票</a>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
