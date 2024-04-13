@@ -28,5 +28,6 @@ urlpatterns = [
 
     path('refund/<int:ticket_id>/', refund, name='refund'),
     path('box_office/', box_office, name='box_office'),
+    path('score/', score_stats, name='score'),
 
 ]

@@ -226,3 +226,20 @@ def box_office(request):
             box_offices.append([sum, movie.movie_name])
     box_offices.sort(reverse=True)
     return render(request, 'box_office.html', {'box_offices': box_offices})
+
+
+def score_stats(request):
+    movies = Movie.objects.all()
+    scores = []
+    for movie in movies:
+        sum = 0
+        cnt = 0
+        tickets = Ticket.objects.filter(movie_id=movie.movie_id, paystatus=True).all()
+        for ticket in tickets:
+            if ticket.evaluation != -1:
+                sum += ticket.evaluation
+                cnt += 1
+        if sum > 0:
+            scores.append([sum/cnt, cnt, movie.movie_name])
+    scores.sort(reverse=True)
+    return render(request, 'score_stats.html', {'scores': scores})
