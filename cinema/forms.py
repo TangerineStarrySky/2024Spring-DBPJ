@@ -18,3 +18,7 @@ class LoginForm(forms.Form):
 
 class SeatSelectionForm(forms.Form):
     seat_selection = forms.IntegerField(label='座位号', min_value=1)
+
+
+class MovieRatingForm(forms.Form):
+    rating = forms.IntegerField(widget=forms.HiddenInput())

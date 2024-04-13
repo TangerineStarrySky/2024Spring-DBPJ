@@ -17,7 +17,11 @@
                     <p>订单状态：
                     {% if info.status %}
                         <span>已支付</span>
-                        <a href="{% url 'valuation' info.ticket_id %}">评价</a>
+                        {% if info.evaluation != -1 %}
+                            <span>已评价</span>
+                        {% else %}
+                            <a href="{% url 'valuation' info.ticket_id %}">评价</a>
+                        {% endif %}
                     {% else %}
                         <span>已撤销</span>
                     {% endif %}

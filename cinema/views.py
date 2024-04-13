@@ -172,11 +172,25 @@ def history(request, user_id):
             'showtime': ticket.showtime,
             'status': ticket.paystatus,
             'movie': moviename,
-            'price': ticket.price
+            'price': ticket.price,
+            'evaluation': ticket.evaluation
         })
 
     return render(request, 'history.html', {'infos': infos})
 
 
 def valuation(request, ticket_id):
-    return render(request, 'valuation.html')
+    movie_id = Ticket.objects.get(pk=ticket_id).movie_id
+    movie = Movie.objects.get(pk=movie_id)
+    return render(request, 'valuation.html', {'movie': movie, 'ticket_id': ticket_id})
+
+
+def submit_rating(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id)
+    if request.method == 'POST':
+        form = MovieRatingForm(request.POST)
+        rating = form.data['rating']
+        ticket.evaluation = rating
+        ticket.save()
+        messages.success(request, '评价成功！')
+    return redirect(reverse('index') + f'?user_id={ticket.user_id}')

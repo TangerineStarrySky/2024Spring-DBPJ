@@ -1,10 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>评价页面</title>
+    <title>电影评价</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .rating-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .rating-button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            text-align: center;
+            line-height: 30px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .rating-button:hover {
+            background-color: #4cae4c;
+        }
+        .chosen{
+            background-color: #4cae4c;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        form input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>请为电影打分: {{ movie.movie_name }}</h1>
+        <div class="rating-buttons">
+            {% for i in '0123456789' %}
+            <button type="button" class="rating-button" id="rating-{{ i }}">{{ i }}</button>
+            {% endfor %}
+            <button type="button" class="rating-button" id="rating-10">10</button>
+        </div>
+        <form id="rating-form" method="post" action="{% url 'submit_rating' ticket_id %}">
+            {% csrf_token %}
+            <input type="hidden" id="rating-value" name="rating" value="">
+            <input type="submit" value="提交评分">
+        </form>
+    </div>
 
+    <script>
+        // 获取所有评分按钮
+        const buttons = document.querySelectorAll('.rating-button');
+        // 获取提交表单的URL
+        const formAction = document.getElementById('rating-form').action;
+
+        // 为每个评分按钮添加点击事件
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('rating-value').value = button.textContent;
+                const x = document.querySelector('.chosen');
+                if(x) x.classList.remove('chosen');
+                button.classList.add('chosen');
+            });
+        });
+    </script>
 </body>
 </html>
