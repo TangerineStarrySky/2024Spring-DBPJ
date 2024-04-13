@@ -62,7 +62,11 @@ def buy(request, user_id, movie_id, room_id):
         seat_id=-1,  # 未选座
         evaluation=-1  # 未评分
     )
-    return render(request, 'buy.html', {'ticket': ticket, 'movie': movie, 'user': user, 'room': room})
+    seat_list = Ticket.objects.filter(room_id=ticket.room_id, movie_id=ticket.movie_id,
+                                      showtime=ticket.showtime, paystatus=True).values_list('seat_id')
+
+    return render(request, 'buy.html',
+                  {'seat_list': seat_list, 'ticket': ticket, 'movie': movie, 'user': user, 'room': room})
 
 
 def confirm_purchase(request, ticket_id):
@@ -80,6 +84,7 @@ def confirm_purchase(request, ticket_id):
         else:
             messages.error(request, '所选座位不可用! 购票失败！')
     return redirect(reverse('index') + f'?user_id={ticket.user_id}')
+
 
 def add_movies(request):
     movies = maoyanTop100()
