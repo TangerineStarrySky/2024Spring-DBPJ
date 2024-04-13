@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影票房</title>
+</head>
+<body>
+    <h3>电影票房</h3>
+    <hr>
+
+    <ul>
+        {% for box in box_offices %}
+            <li>
+                <p>
+                    {{ box.1 }}: {{ box.0 }}元
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>注：未显示的电影即暂无销售记录</p>
+</body>
+</html>

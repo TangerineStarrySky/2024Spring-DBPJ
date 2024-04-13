@@ -213,3 +213,16 @@ def refund(request, ticket_id):
     ticket.save()
     messages.success(request, '退票成功！')
     return redirect(reverse('index') + f'?user_id={ticket.user_id}')
+
+def box_office(request):
+    movies = Movie.objects.all()
+    box_offices = []
+    for movie in movies:
+        sum = 0
+        tickets = Ticket.objects.filter(movie_id=movie.movie_id, paystatus=True).all()
+        for ticket in tickets:
+            sum += ticket.price
+        if sum > 0:
+            box_offices.append([sum, movie.movie_name])
+    box_offices.sort(reverse=True)
+    return render(request, 'box_office.html', {'box_offices': box_offices})
