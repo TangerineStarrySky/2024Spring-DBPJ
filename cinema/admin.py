@@ -8,3 +8,6 @@ from cinema.models import *
 #  3. 根路由urls.py中添加： path('admin/', admin.site.urls),
 #  4. 访问后台管理系统：http://127.0.0.1:8000/admin/
 admin.site.register(Movie)
+admin.site.register(User)
+admin.site.register(ScreeningRoom)
+admin.site.register(Ticket)

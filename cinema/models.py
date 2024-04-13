@@ -14,6 +14,9 @@ class User(models.Model):
     password = models.CharField(max_length=20)
     register_date = models.DateField()
 
+    def __str__(self):
+        return str(self.username)
+
 
 class Movie(models.Model):
     movie_id = models.AutoField(primary_key=True)
@@ -23,12 +26,18 @@ class Movie(models.Model):
     score = models.CharField(max_length=10)
     img = models.CharField(max_length=255)
 
+    def __str__(self):
+        return str(self.movie_name)
+
 
 class ScreeningRoom(models.Model):
     room_id = models.AutoField(primary_key=True)
     room_name = models.CharField(max_length=30, unique=True)
     seats = models.IntegerField()
     price = models.IntegerField(default=100)
+
+    def __str__(self):
+        return str(self.room_name)
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True)
@@ -47,3 +56,6 @@ class Ticket(models.Model):
             MaxValueValidator(10)
         ]
     )
+
+    def __str__(self):
+        return str(self.paytime)

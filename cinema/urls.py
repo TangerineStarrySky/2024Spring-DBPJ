@@ -21,4 +21,8 @@ urlpatterns = [
     path('buy/<int:user_id>/<int:movie_id>/<int:room_id>/', buy, name='buy'),
     path('confirm_purchase/<int:ticket_id>/', confirm_purchase, name='confirm_purchase'),
 
+
+
+    path('valuation/<int:ticket_id>/', valuation, name='valuation'),
+
 ]

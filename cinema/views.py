@@ -162,4 +162,21 @@ def handle_login(request):
 
 
 def history(request, user_id):
-    return HttpResponse('hhh')
+    tickets = Ticket.objects.filter(user_id=user_id).all()
+    infos = []
+    for ticket in tickets:
+        moviename = Movie.objects.get(pk=ticket.movie_id).movie_name
+        infos.append({
+            'ticket_id': ticket.ticket_id,
+            'paytime': ticket.paytime,
+            'showtime': ticket.showtime,
+            'status': ticket.paystatus,
+            'movie': moviename,
+            'price': ticket.price
+        })
+
+    return render(request, 'history.html', {'infos': infos})
+
+
+def valuation(request, ticket_id):
+    return render(request, 'valuation.html')

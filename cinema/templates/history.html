@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>历史订单</title>
+</head>
+<body>
+    <h2>历史订单记录</h2>
+    <hr>
+    <div>
+        <ul>
+            {% for info in infos reversed %}
+                <li>
+                    <p>序号：{{ forloop.counter }}</p>
+                    <p>订单创建时间：{{ info.paytime }}</p>
+                    <p>电影名称：{{ info.movie }}</p>
+                    <p>订单状态：
+                    {% if info.status %}
+                        <span>已支付</span>
+                        <a href="{% url 'valuation' info.ticket_id %}">评价</a>
+                    {% else %}
+                        <span>已撤销</span>
+                    {% endif %}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+
+</body>
+</html>
