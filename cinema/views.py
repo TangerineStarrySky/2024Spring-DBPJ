@@ -32,17 +32,20 @@ def register(request):
 
 def show_movies(request, user_id):
     movies = Movie.objects.all()
-    return render(request, 'movie_list.html', {'movies': movies, 'user_id': user_id})
+    user = User.objects.filter(pk=user_id).first()
+    return render(request, 'movie_list.html', {'movies': movies, 'user_id': user_id, 'user': user})
 
 
 def show_movie_info(request, user_id, movie_id):
     movie = Movie.objects.filter(pk=movie_id).first()
-    return render(request, 'movie_info.html', {'movie': movie, 'user_id': user_id})
+    user = User.objects.filter(pk=user_id).first()
+    return render(request, 'movie_info.html', {'movie': movie, 'user_id': user_id, 'user': user})
 
 
 def show_rooms(request, user_id, movie_id):
     rooms = ScreeningRoom.objects.all()
-    return render(request, 'room_info.html', {'rooms': rooms, 'movie_id': movie_id, 'user_id': user_id})
+    user = User.objects.filter(pk=user_id).first()
+    return render(request, 'room_info.html', {'rooms': rooms, 'movie_id': movie_id, 'user_id': user_id, 'user': user})
 
 
 def buy(request, user_id, movie_id, room_id):
@@ -246,10 +249,12 @@ def score_stats(request):
 
 
 def ranking(request, user_id):
+    user = User.objects.filter(pk=user_id).first()
     movies = Movie.objects.all()
     scores = []
     for movie in movies:
         scores.append([movie.score, movie.movie_name, movie.starring, movie.img, movie.movie_id])
     scores.sort(reverse=True)
     top10 = scores[0:10]
-    return render(request, 'ranking_list.html', {'top10': top10, 'user_id': user_id})
+    return render(request, 'ranking_list.html', {'top10': top10, 'user_id': user_id, 'user': user})
+

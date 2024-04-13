@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: rgb(11 181 237 / 15%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    width: 80%;
+    max-width: 800px;
+    background-color: #1105fa2e;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+h2 {
+    color: #d35400; /* 暖色系强调颜色 */
+    margin-bottom: 20px;
+    font-size: 2.5rem; /* 增大字体大小 */
+}
+.movie-details {
+    margin-bottom: 20px;
+}
+
+.movie-title{
+    font-weight: bold;
+    font-size: 30px;
+    color: #e50d0d;
+}
+
+.movie-rating {
+    color: #e67e22; /* 暖色系突出评分 */
+    font-weight: bold;
+    font-size: 40px;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.movie-details p {
+    margin: 15px 0;
+    font-size: 1.3rem;
+}
+
+.buy {
+    display: inline-block;
+    background-color: #e67e22; /* 鲜艳的按钮颜色 */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+    position: relative; /* 相对定位，为装饰元素定位 */
+    overflow: hidden;
+}
+.buy::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    transform: scale(0.1) rotate(45deg);
+    transition: transform 0.3s;
+}
+.buy:hover::before {
+    transform: scale(1) rotate(45deg);
+}
+.buy:hover {
+    background-color: #d35400;
+    cursor: pointer;
+}

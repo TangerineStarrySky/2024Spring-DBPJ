@@ -3,20 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>电影详情页</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/movie_info.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 </head>
 <body>
-    <h2>电影详情</h2>
-    <hr>
-    {% load static %}
-    <img src="{% static movie.img %}">
-    <div>
-        <p>电影名称: {{ movie.movie_name }}</p>
-        <p>主演: {{ movie.starring }}</p>
-        <p>上映日期: {{ movie.release_datetime }}</p>
-        <p>网络评分: {{ movie.score }}</p>
 
+    <div class="navbar">
+        <div class="cinema_name">视成影院</div>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
     </div>
-    <a href="{% url 'rooms' user_id movie.movie_id %}">购票</a>
 
+    <div class="container">
+        <h2>电影详情</h2>
+        <hr>
+        <img src="{% static movie.img %}">
+        <div class="movie-details">
+            <p>电影名称: <span class="movie-title">{{ movie.movie_name }}</span></p>
+            <p>主演: {{ movie.starring }}</p>
+            <p>上映日期: {{ movie.release_datetime }}</p>
+            <p>网络评分: <span class="movie-rating">{{ movie.score }}</span></p>
+        </div>
+        <a href="{% url 'rooms' user_id movie.movie_id %}" class="buy">购票</a>
+    </div>
 </body>
 </html>

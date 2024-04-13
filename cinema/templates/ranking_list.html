@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <title>电影排行榜</title>
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/ranking.css' %}">
 </head>
 <body>
+    <div class="navbar">
+        <div class="cinema_name">视成影院</div>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
+
     <div class="container">
         <h2>电影排行榜</h2>
         <ul class="movie-list">
