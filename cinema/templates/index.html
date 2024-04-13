@@ -3,17 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>视成影院首页</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-    <h2>视成影院</h2>
-    <hr>
-    <h3>用户名：{{ user.username }}</h3>
+    <div class="navbar">
+        <div class="cinema_name">视成影院</div>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
 
-    <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
-    <a href="{% url 'movies' user.user_id %}">所有电影</a>
-    <a href="{% url 'history' user.user_id %}">历史订单</a>
-    <a href="{% url 'welcome' %}">退出登录</a>
-
+    <div class="container">
+        <h2>欢迎来到视成影院！</h2>
+        <div class="slider">
+            <div class="slider-wrapper">
+              <img src="{% static 'images/index/slider (1).jpg' %}" alt="" />
+            </div>
+            <div class="slider-footer">
+              <ul class="slider-indicator">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+              <div class="toggle">
+                <button class="prev">&lt;</button>
+                <button class="next">&gt;</button>
+              </div>
+            </div>
+        </div>
+    </div>
 
     {% if messages %}
         <script>
@@ -22,5 +49,63 @@
             {% endfor %}
         </script>
     {% endif %}
+    <script>
+        const data = [
+          { url: '{% static 'images/index/slider (1).jpg' %}', color: 'rgb(100, 67, 68)' },
+          { url: '{% static 'images/index/slider (2).jpg' %}', color: 'rgb(43, 35, 26)' },
+          { url: '{% static 'images/index/slider (3).jpg' %}', color: 'rgb(36, 31, 33)' },
+          { url: '{% static 'images/index/slider (4).jpg' %}', color: 'rgb(139, 98, 66)' },
+          { url: '{% static 'images/index/slider (5).jpg' %}', color: 'rgb(67, 90, 92)' },
+          { url: '{% static 'images/index/slider (6).jpg' %}', color: 'rgb(166, 131, 143)' },
+          { url: '{% static 'images/index/slider (7).jpg' %}', color: 'rgb(53, 29, 25)' },
+          { url: '{% static 'images/index/slider (8).jpg' %}', color: 'rgb(99, 72, 114)' },
+        ]
+        const img = document.querySelector('.slider-wrapper img')
+        const footer = document.querySelector('.slider-footer')
+
+        const next = document.querySelector('.next')
+        let i = 0  // 信号量 控制播放图片张数
+        next.addEventListener('click', function () {
+          i++
+          i = i >= data.length ? 0 : i
+          toggle()
+        })
+        const prev = document.querySelector('.prev')
+        prev.addEventListener('click', function () {
+          i--
+          i = i < 0 ? data.length - 1 : i
+          toggle()
+        })
+
+        function toggle() {
+          img.src = data[i].url
+          footer.style.backgroundColor = data[i].color
+          document.querySelector('.slider-indicator .active').classList.remove('active')
+          document.querySelector(`.slider-indicator li:nth-child(${i + 1})`).classList.add('active')
+        }
+
+        // 自动播放模块
+        let timerId = setInterval(function () {
+          // 利用js自动调用点击事件  click()  一定加小括号调用函数
+          next.click()
+        }, 1000)
+
+        // 鼠标经过大盒子，停止定时器
+        const slider = document.querySelector('.slider')
+        slider.addEventListener('mouseenter', function () {
+          clearInterval(timerId)
+        })
+
+        // 鼠标离开大盒子，开启定时器
+        slider.addEventListener('mouseleave', function () {
+          // 停止定时器
+          if (timerId) clearInterval(timerId)
+          // 开启定时器
+          timerId = setInterval(function () {
+            next.click()
+          }, 1000)
+        })
+    </script>
 </body>
+
 </html>
