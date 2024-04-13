@@ -9,7 +9,8 @@
     <hr>
     <h3>用户名：{{ user.username }}</h3>
 
-    <a href="{% url 'movies' user.user_id %}">显示所有电影</a>
+    <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+    <a href="{% url 'movies' user.user_id %}">所有电影</a>
     <a href="{% url 'history' user.user_id %}">历史订单</a>
     <a href="{% url 'welcome' %}">退出登录</a>
 

@@ -243,3 +243,13 @@ def score_stats(request):
             scores.append([sum/cnt, cnt, movie.movie_name])
     scores.sort(reverse=True)
     return render(request, 'score_stats.html', {'scores': scores})
+
+
+def ranking(request, user_id):
+    movies = Movie.objects.all()
+    scores = []
+    for movie in movies:
+        scores.append([movie.score, movie.movie_name, movie.starring, movie.img, movie.movie_id])
+    scores.sort(reverse=True)
+    top10 = scores[0:10]
+    return render(request, 'ranking_list.html', {'top10': top10, 'user_id': user_id})

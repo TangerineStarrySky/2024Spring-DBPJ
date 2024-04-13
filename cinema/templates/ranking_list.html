@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影排行榜</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            font-size: 2.5rem; /* 标题字体大小 */
+            color: #333; /* 标题字体颜色 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 标题文字阴影 */
+            background: linear-gradient(to right, orange, #ef4e7b); /* 标题背景渐变 */
+            padding: 10px 20px; /* 标题内边距 */
+            border-radius: 10px; /* 标题边框圆角 */
+            margin-bottom: 30px; /* 标题下方的外边距 */
+            text-align: center; /* 标题居中 */
+            display: flex; /* 使用Flexbox布局 */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(200, 150, 50, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .movie-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .movie-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid rgba(255, 105, 0, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative; /* 为序号添加定位 */
+            padding-left: 100px; /* 为序号留出空间 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .movie-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .rank {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .rank-1 {
+            color: red;
+        }
+        .rank-2 {
+            color: green;
+        }
+        .rank-3 {
+            color: blue;
+        }
+        .movie-info {
+            display: flex;
+            align-items: center;
+        }
+        .movie-cover {
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        .movie-details {
+            flex: 1;
+        }
+        .movie-title {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .movie-cast {
+            font-size: 18px;
+            color: #333;
+        }
+        .movie-rating {
+            font-size: 20px;
+            color: #f60;
+            margin-bottom: 10px;
+        }
+        .movie-item {
+            /* 其他样式保持不变 */
+
+        }
+
+        .rank-number {
+            font-size: 5rem; /* 巨大的序号字体大小 */
+            font-weight: bold;
+            color: darkorange; /* 降低序号的对比度，使其作为背景 */
+            position: absolute; /* 绝对定位 */
+            top: 0; /* 根据需要调整位置 */
+            left: 0; /* 根据需要调整位置 */
+        }
+
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+    {% load static %}
+</head>
+<body>
+    <div class="container">
+        <h2>电影排行榜</h2>
+
+        <ul class="movie-list">
+            {% for movie in top10 %}
+                <a href="{% url 'movieinfo' user_id movie.4 %}">
+                <li class="movie-item {% if forloop.counter0 < 3 %}rank-{{ forloop.counter }}{% endif %}">
+                    <div class="rank-number">{{ forloop.counter }}</div>
+                    <div class="movie-info">
+                        <img class="movie-cover" src="{% static movie.3 %}" alt="{{ movie.1 }}">
+                        <div class="movie-details">
+                            <h3 class="movie-title">{{ movie.1 }}</h3>
+                            <p class="movie-cast">主演：{{ movie.2 }}</p>
+                            <p class="movie-rating">评分：{{ movie.0 }}</p>
+                        </div>
+                    </div>
+                </li>
+                </a>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
