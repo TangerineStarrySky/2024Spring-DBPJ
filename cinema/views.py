@@ -164,7 +164,7 @@ def handle_login(request):
 
 
 def history(request, user_id):
-    user = User.objects.filter(pk=user_id).first()
+    user = User.objects.get(pk=user_id)
     tickets = Ticket.objects.filter(user_id=user_id).all()
     infos = []
     for ticket in tickets:
@@ -219,26 +219,29 @@ def refund(request, ticket_id):
     return redirect(reverse('index') + f'?user_id={ticket.user_id}')
 
 def box_office(request):
+    user = User.objects.get(pk=1)
     movies = Movie.objects.all()
     box_offices = []
     for movie in movies:
         sum = 0
         tickets = Ticket.objects.filter(movie_id=movie.movie_id, paystatus=True).all()
+        cnt = tickets.count()
         for ticket in tickets:
             sum += ticket.price
         if sum > 0:
-            box_offices.append([sum, movie.movie_name])
+            box_offices.append([sum, cnt, movie.movie_name])
     box_offices.sort(reverse=True)
-    return render(request, 'box_office.html', {'box_offices': box_offices})
+    return render(request, 'box_office.html', {'box_offices': box_offices, 'user': user})
 
 
 def score_stats(request):
+    user = User.objects.get(pk=1)
     movies = Movie.objects.all()
     scores = []
     for movie in movies:
         sum = 0
-        cnt = 0
         tickets = Ticket.objects.filter(movie_id=movie.movie_id, paystatus=True).all()
+        cnt = 0
         for ticket in tickets:
             if ticket.evaluation != -1:
                 sum += ticket.evaluation
@@ -246,7 +249,7 @@ def score_stats(request):
         if sum > 0:
             scores.append([sum/cnt, cnt, movie.movie_name])
     scores.sort(reverse=True)
-    return render(request, 'score_stats.html', {'scores': scores})
+    return render(request, 'score_stats.html', {'scores': scores, 'user': user})
 
 
 def ranking(request, user_id):

@@ -3,20 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>电影评分</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stats.css' %}">
 </head>
 <body>
-    <h3>电影评分（满分10分）</h3>
-    <hr>
+    <div class="navbar">
+        <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
 
-    <ul>
-        {% for score in scores %}
-            <li>
-                <p>
-                    {{ score.2 }}: {{ score.0 }}  （评价人数：{{ score.1 }}人）
-                </p>
-            </li>
-        {% endfor %}
-    </ul>
-    <p>注：未显示的电影即暂无评价记录</p>
+        {% if user.user_id == 1 %}
+            <a href="{% url 'box_office' %}">票房统计</a>
+            <a href="{% url 'score' %}">评分统计</a>
+        {% endif %}
+
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
+
+    <div class="container">
+        <h3>电影评分（满分10分）</h3>
+        <hr>
+        <ul>
+            {% for score in scores %}
+                <li>
+                    <p>
+                        {{ score.2 }}: <span>{{ score.0 }}</span> 分（评价次数：{{ score.1 }}次）
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+        <p class="note">注：未显示的电影即暂无评价记录</p>
+    </div>
 </body>
 </html>
