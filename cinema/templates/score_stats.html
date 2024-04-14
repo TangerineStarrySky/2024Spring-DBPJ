@@ -29,9 +29,9 @@
         <ul>
             {% for score in scores %}
                 <li>
-                    <p>
-                        {{ score.2 }}: <span>{{ score.0 }}</span> 分（评价次数：{{ score.1 }}次）
-                    </p>
+                    <span class="movie-name"> {{ score.2 }} </span>
+                    <span class="number">{{ score.0 | floatformat:1 }}</span> 分
+                    <span class="count">（评价次数：{{ score.1 }}次）</span>
                 </li>
             {% endfor %}
         </ul>
