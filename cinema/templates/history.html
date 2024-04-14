@@ -3,39 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>历史订单</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/history.css' %}">
 </head>
 <body>
-    <h2>历史订单记录</h2>
-    <hr>
-    <div>
+    <div class="navbar">
+        <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
+
+        {% if user.user_id == 1 %}
+            <a href="{% url 'box_office' %}">票房统计</a>
+            <a href="{% url 'score' %}">评分统计</a>
+        {% endif %}
+
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
+
+    <div class="container">
+        <h2>历史订单记录</h2>
+        <hr>
         <ul>
             {% for info in infos reversed %}
-                <li>
+                <li class="order-item">
                     <p>序号：{{ forloop.counter }}</p>
                     <p>订单创建时间：{{ info.paytime }}</p>
                     <p>电影名称：{{ info.movie }}</p>
                     <p>订单状态：
-                    {% if info.status %}
-                        <span>已支付</span>
-                        {% if not info.refundable %}
-                            {% if info.evaluation != -1 %}
-                                <span>已评价</span>
+                        {% if info.status %}
+                            <span class="order-status status-paid">已支付</span>
+                            {% if not info.refundable %}
+                                {% if info.evaluation != -1 %}
+                                    <span class="order-status status-valued">已评价</span>
+                                {% else %}
+                                    <a href="{% url 'valuation' info.ticket_id %}" class="order-status status-active">评价</a>
+                                {% endif %}
                             {% else %}
-                                <a href="{% url 'valuation' info.ticket_id %}">评价</a>
+                                <a href="{% url 'refund' info.ticket_id %}" class="order-status status-refunded">退票</a>
                             {% endif %}
                         {% else %}
-                            <a href="{% url 'refund' info.ticket_id %}">退票</a>
+                            <span class="order-status status-cancelled">已撤销</span>
                         {% endif %}
-                    {% else %}
-                        <span>已撤销</span>
-                    {% endif %}
                     </p>
                 </li>
             {% endfor %}
         </ul>
-
     </div>
-
-
 </body>
 </html>

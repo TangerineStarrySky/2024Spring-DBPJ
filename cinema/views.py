@@ -164,6 +164,7 @@ def handle_login(request):
 
 
 def history(request, user_id):
+    user = User.objects.filter(pk=user_id).first()
     tickets = Ticket.objects.filter(user_id=user_id).all()
     infos = []
     for ticket in tickets:
@@ -190,7 +191,7 @@ def history(request, user_id):
             'evaluation': ticket.evaluation
         })
 
-    return render(request, 'history.html', {'infos': infos})
+    return render(request, 'history.html', {'infos': infos, 'user': user})
 
 
 def valuation(request, ticket_id):
