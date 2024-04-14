@@ -1,0 +1,155 @@
+/* 全局样式 */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(106, 152, 222, 0.25);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px; /* 扩大容器宽度 */
+    margin: 120px auto;
+    padding: 40px;
+    background: linear-gradient(45deg, #49a09d, #5f2c82);
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+a.return{
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.return:hover{
+    color: rgba(236, 110, 12, 0.95);
+}
+
+h2 {
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 30px;
+    margin-top: 0;
+    position: relative;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+/* 放映时间列表样式 */
+.showtime-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: showtime;
+}
+
+.showtime-item {
+    counter-increment: showtime;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    background-color: rgb(233 232 244 / 93%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.showtime-item:before {
+    content: counter(showtime) ". ";
+    font-weight: 700;
+    color: #0a15f6;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.showtime-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+strong{
+    font-size: 22px;
+}
+
+/* 放映厅列表样式 */
+.room-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.room-item {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    background-color: rgba(159, 184, 248, 0.35);
+    padding: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.room-item:last-child {
+    margin-bottom: 0;
+}
+
+.room-name{
+    width: 120px;
+}
+
+.seat-list {
+    list-style: none;
+    padding: 0;
+    margin-left: 100px;
+    font-size: 0.9rem;
+}
+
+.seat-item {
+    background-color: #ff9800;
+    color: white;
+    padding: 5px 15px;
+    margin-right: 10px;
+    border-radius: 20px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.seat-item:hover {
+    background-color: #f57c00;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    h2::before {
+        bottom: -10px;
+    }
+
+    .showtime-item {
+        padding: 15px;
+    }
+}
+

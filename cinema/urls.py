@@ -21,8 +21,6 @@ urlpatterns = [
     path('buy/<int:user_id>/<int:movie_id>/<int:room_id>/', buy, name='buy'),
     path('confirm_purchase/<int:ticket_id>/', confirm_purchase, name='confirm_purchase'),
 
-
-
     path('valuation/<int:ticket_id>/', valuation, name='valuation'),
     path('submit_rating/<int:ticket_id>/', submit_rating, name='submit_rating'),
 
@@ -30,5 +28,7 @@ urlpatterns = [
     path('box_office/', box_office, name='box_office'),
     path('score/', score_stats, name='score'),
     path('ranking/<int:user_id>/', ranking, name='ranking'),
+
+    path('showinfo/<int:user_id>/<int:movie_id>/', showinfo, name='showinfo'),
 
 ]

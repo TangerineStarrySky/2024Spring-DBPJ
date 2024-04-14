@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影放映信息</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/showinfo.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
+
+        {% if user.user_id == 1 %}
+            <a href="{% url 'box_office' %}">票房统计</a>
+            <a href="{% url 'score' %}">评分统计</a>
+        {% endif %}
+
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
+
+    <div class="container">
+        <a class="return" href="{% url 'movieinfo' user_id movie.movie_id %}">返回</a>
+        <h2>{{ movie.movie_name }}</h2>
+        <ol class="showtime-list">
+            {% for showtime in showinfos %}
+                <li class="showtime-item">
+                    <strong>{{ showtime.0 }}</strong>
+                    <ul class="room-list">
+                        {% for room, seats in showtime.1.items %}
+                            <li class="room-item">
+                                <div class="room-name">{{ room }}</div>
+                                <ul class="seat-list">已选座位：
+                                    {% for seat in seats %}
+                                        <li class="seat-item">{{ seat }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+</body>
+</html>

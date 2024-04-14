@@ -32,26 +32,57 @@ def register(request):
 
 def show_movies(request, user_id):
     movies = Movie.objects.all()
-    user = User.objects.filter(pk=user_id).first()
+    user = User.objects.get(pk=user_id)
     return render(request, 'movie_list.html', {'movies': movies, 'user_id': user_id, 'user': user})
 
 
 def show_movie_info(request, user_id, movie_id):
-    movie = Movie.objects.filter(pk=movie_id).first()
-    user = User.objects.filter(pk=user_id).first()
+    movie = Movie.objects.get(pk=movie_id)
+    user = User.objects.get(pk=user_id)
     return render(request, 'movie_info.html', {'movie': movie, 'user_id': user_id, 'user': user})
+
+
+def showinfo(request, user_id, movie_id):
+    user = User.objects.get(pk=user_id)
+    movie = Movie.objects.get(pk=movie_id)
+    tickets = Ticket.objects.filter(movie_id=movie_id, paystatus=True).all()
+    room_dict = dict(ScreeningRoom.objects.all().values_list('room_id', 'room_name'))
+    temp = tickets.values_list('showtime', 'room_id', 'seat_id')
+    result = [[x, room_dict.get(y), z] for (x, y, z) in temp]
+    # print(result)
+    showinfos = []
+    grouped_data = {}
+    for item in result:
+        key = item[0]
+        if key not in grouped_data:
+            grouped_data[key] = []
+        grouped_data[key].append([item[1], item[2]])
+
+    # print(grouped_data)
+    for key, value in grouped_data.items():
+        grouped_data2 = {}
+        for v in value:
+            key2 = v[0]
+            if key2 not in grouped_data2:
+                grouped_data2[key2] = []
+            grouped_data2[key2].append(v[1])
+        # print(grouped_data2)
+        showinfos.append([key, grouped_data2])
+    # print(showinfos)
+    return render(request, 'showinfo.html',
+                  {'showinfos': showinfos, 'movie': movie, 'user_id': user_id, 'user': user})
 
 
 def show_rooms(request, user_id, movie_id):
     rooms = ScreeningRoom.objects.all()
-    user = User.objects.filter(pk=user_id).first()
+    user = User.objects.get(pk=user_id)
     return render(request, 'room_info.html', {'rooms': rooms, 'movie_id': movie_id, 'user_id': user_id, 'user': user})
 
 
 def buy(request, user_id, movie_id, room_id):
-    user = User.objects.filter(pk=user_id).first()
-    movie = Movie.objects.filter(pk=movie_id).first()
-    room = ScreeningRoom.objects.filter(pk=room_id).first()
+    user = User.objects.get(pk=user_id)
+    movie = Movie.objects.get(pk=movie_id)
+    room = ScreeningRoom.objects.get(pk=room_id)
     timestamp = int(time.time())
     next_1h = timestamp - timestamp % 3600 + 3600  # 下一个1小时整的时间戳
 
@@ -242,7 +273,7 @@ def score_stats(request):
 
 
 def ranking(request, user_id):
-    user = User.objects.filter(pk=user_id).first()
+    user = User.objects.get(pk=user_id)
     movies = Movie.objects.all()
     scores = []
     for movie in movies:
