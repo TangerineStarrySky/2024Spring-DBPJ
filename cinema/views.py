@@ -62,7 +62,7 @@ def buy(request, user_id, movie_id, room_id):
         room_id=room_id,
         showtime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(next_1h)),
         paystatus=False
-    ).first()
+    ).last()  # 取最近一次的订单 防止多次退票订单情况下选取的第一个旧订单超时而不断生成新订单
     # 如果存在5分钟之内未付款或退票的订单 就使用旧订单
     if existing_ticket:
         date_string = existing_ticket.paytime
