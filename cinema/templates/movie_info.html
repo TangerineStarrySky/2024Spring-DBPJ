@@ -14,6 +14,12 @@
         <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
         <a href="{% url 'movies' user.user_id %}">所有电影</a>
         <a href="{% url 'history' user.user_id %}">历史订单</a>
+
+        {% if user.user_id == 1 %}
+            <a href="{% url 'box_office' %}">票房统计</a>
+            <a href="{% url 'score' %}">评分统计</a>
+        {% endif %}
+
         <a href="{% url 'welcome' %}">退出登录</a>
         <div class="username">用户：{{ user.username }}</div>
     </div>
