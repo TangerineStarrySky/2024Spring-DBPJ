@@ -3,19 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>放映厅信息</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rooms.css' %}">
 </head>
 <body>
-    <h2>放映厅信息</h2>
-    <hr>
-    <ul>
-        {% for room in rooms %}
-            <li>
-                <p>放映厅名称: {{ room.room_name }}</p>
-                <p>座位数: {{ room.seats }}</p>
-                <p>价格: {{ room.price }} 元</p>
-                <a href="{% url 'buy' user_id movie_id room.room_id %}">购票</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="navbar">
+        <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
+
+        {% if user.user_id == 1 %}
+            <a href="{% url 'box_office' %}">票房统计</a>
+            <a href="{% url 'score' %}">评分统计</a>
+        {% endif %}
+
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
+
+    <div class="container">
+        <h2>放映厅信息</h2>
+        <ul>
+            {% for room in rooms %}
+                <li class="room-item">
+                    <div class="room-info">
+                        <div class="room-name">{{ room.room_name }}
+                            <p>座位数: {{ room.seats }}</p>
+                        </div>
+                        <div class="room-details">
+                            <p>价格: <span>{{ room.price }}</span> 元</p>
+                        </div>
+                    </div>
+                    <a href="{% url 'buy' user_id movie_id room.room_id %}" class="room-link">购票</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

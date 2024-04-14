@@ -10,7 +10,7 @@
 <body>
 
     <div class="navbar">
-        <div class="cinema_name">视成影院</div>
+        <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
         <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
         <a href="{% url 'movies' user.user_id %}">所有电影</a>
         <a href="{% url 'history' user.user_id %}">历史订单</a>

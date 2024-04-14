@@ -1,27 +1,27 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: rgba(81, 239, 196, 0.2);
+    background-color: rgba(116, 237, 246, 0.21);
     margin: 0;
     padding: 0;
-    color: #5d5d5d;
+    color: #333;
 }
 .container {
     max-width: 800px;
     margin: 80px auto;
     padding: 20px;
-    background-color: rgba(105, 252, 239, 0.39);
+    background: linear-gradient(to right top, rgba(255, 218, 185, 0.8), rgba(255, 192, 203, 0.8));
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 h3 {
     text-align: center;
-    color: #f44336;
+    color: #FF6347;
     font-size: 2.5rem;
     margin-bottom: 40px;
 }
 hr {
     border: none;
-    border-top: 2px solid #f44336;
+    border-top: 2px solid #FF6347;
     margin-bottom: 30px;
 }
 .movie-list {
@@ -34,57 +34,54 @@ hr {
 .movie-list li {
     position: relative;
     padding: 20px;
-    height: 70px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     counter-increment: movie-counter;
+    background: linear-gradient(to right, rgba(255, 182, 193, 0.7), rgba(255, 228, 181, 0.7));
+    margin-bottom: 15px;
+    border-radius: 15px;
 }
 .movie-list li:last-child {
     border-bottom: none;
 }
 .movie-list li::before {
     content: counter(movie-counter) ". ";
-    color: #f44336;
+    color: #FF6347;
     font-weight: bold;
     position: absolute;
     left: 20px;
 }
-.wrapper{
-    height: 70px;
+.wrapper {
+    display: flex;
+    align-items: center;
 }
-.left{
-    float: left;
-    display: inline;
+.left {
+    flex: 1;
     margin-left: 50px;
-    height: 70px;
-    width: 585px;
 }
-.right{
-    float: right;
-    display: inline;
-    height: 70px;
-    margin-left: 0;
+.right {
+    margin-left: auto;
 }
 .movie-name {
     font-size: 1.8rem;
-    color: #65057a;
+    color: #800000;
     font-weight: bold;
-    display: block;
+    margin-bottom: 5px;
 }
 .movie-cast {
-    color: #ff9800;
-    margin-top: 10px;
-    width: auto;
+    font-weight: bold;
+    color: #FFA500;
+    font-style: italic;
 }
 .purchase-button {
-    display: block;
-    margin-top: 15px;
+    display: inline-block;
+    margin-top: 5px;
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
-    background-color: #ff9800;
+    background: linear-gradient(to right, #FFD700, #FFA500);
     color: #fff;
     transition: background-color 0.3s;
 }
 .purchase-button:hover {
-    background-color: #f44336;
+    background: linear-gradient(to right, #FF8C00, #FF6347);
 }

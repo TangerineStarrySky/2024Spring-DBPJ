@@ -1,0 +1,122 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1CB5E0, #000851);
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px 40px;
+    margin-top: 80px;
+    margin-bottom: 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease;
+}
+h2 {
+    text-align: center;
+    color: #FFD700;
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.room-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #f06, #ef4e7b);
+    color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.room-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle, #FFD700 20%, transparent 60%);
+    opacity: 0.2;
+    border-radius: 10px;
+}
+.room-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.room-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.room-name {
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    padding: 15px;
+}
+.room-name p{
+    font-size: 16px;
+    font-style: italic;
+}
+.room-details {
+    display: flex;
+    margin-right: 130px;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 18px;
+}
+.room-details span{
+    font-weight: bold;
+    font-size: 45px;
+}
+
+.room-details p {
+    margin: 5px auto;
+}
+.room-link {
+    display: inline-block;
+    background-color: #FFD700;
+    color: #000851;
+    margin-right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+.room-link:hover {
+    background-color: #C0C0C0;
+}
+@media (max-width: 768px) {
+    .room-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .room-details {
+        margin-top: 10px;
+    }
+    .room-link {
+        position: relative;
+        top: auto;
+        transform: none;
+        margin-top: 10px;
+    }
+}
