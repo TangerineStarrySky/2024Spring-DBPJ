@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>电影详情页</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/movie_info.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/movie_info.css' %}">
 </head>
 <body>
-
     <div class="navbar">
         <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
         <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>

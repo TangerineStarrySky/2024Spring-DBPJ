@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 130px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #4caf50; /* 暖色调标题 */
+    margin-bottom: 30px;
+}
+
+.rating-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.rating-button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-align: center;
+    line-height: 40px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border-radius: 50%; /* 圆形按钮 */
+}
+
+.rating-button:hover {
+    background-color: #4caf50; /* 悬停背景色 */
+    color: #fff; /* 悬停文本颜色 */
+    border-color: #4caf50; /* 悬停边框颜色 */
+}
+
+.chosen {
+    background-color: #4caf50; /* 已选择按钮背景色 */
+    color: #fff; /* 已选择按钮文本颜色 */
+    border-color: #4caf50; /* 已选择按钮边框颜色 */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form input[type="submit"] {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #4caf50; /* 提交按钮背景色 */
+    color: #fff; /* 提交按钮文本颜色 */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #43a047; /* 悬停提交按钮背景色 */
+}

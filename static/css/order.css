@@ -1,0 +1,104 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 130px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #244be3;
+    margin-bottom: 30px;
+}
+
+.order-details {
+    margin-bottom: 20px;
+}
+
+.order-item {
+    margin-bottom: 15px;
+}
+
+.order-item label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    color: #555;
+}
+
+.order-item span {
+    display: inline-block;
+    margin-left: 10px;
+    color: #333;
+}
+
+.ticket-info {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.ticket-info h3 {
+    margin-top: 0;
+    color: #244be3;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="number"]:focus {
+    outline: none;
+    border-color: #66afe9;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #244be3;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0430de;
+}
+
+.choose {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}

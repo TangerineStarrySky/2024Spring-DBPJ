@@ -6,7 +6,7 @@ body {
     color: #333;
 }
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 80px auto;
     padding: 20px;
     background: linear-gradient(to right top, rgba(255, 218, 185, 0.8), rgba(255, 192, 203, 0.8));
@@ -33,11 +33,13 @@ hr {
 }
 .movie-list li {
     position: relative;
-    padding: 20px;
+    padding: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     counter-increment: movie-counter;
     background: linear-gradient(to right, rgba(255, 182, 193, 0.7), rgba(255, 228, 181, 0.7));
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-radius: 15px;
 }
 .movie-list li:last-child {
@@ -49,6 +51,7 @@ hr {
     font-weight: bold;
     position: absolute;
     left: 20px;
+    font-size: 26px;
 }
 .wrapper {
     display: flex;

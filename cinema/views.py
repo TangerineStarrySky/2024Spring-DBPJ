@@ -195,9 +195,10 @@ def history(request, user_id):
 
 
 def valuation(request, ticket_id):
-    movie_id = Ticket.objects.get(pk=ticket_id).movie_id
-    movie = Movie.objects.get(pk=movie_id)
-    return render(request, 'valuation.html', {'movie': movie, 'ticket_id': ticket_id})
+    ticket = Ticket.objects.get(pk=ticket_id)
+    movie = Movie.objects.get(pk=ticket.movie_id)
+    user = User.objects.get(pk=ticket.user_id)
+    return render(request, 'valuation.html', {'movie': movie, 'ticket_id': ticket_id, 'user': user})
 
 
 def submit_rating(request, ticket_id):

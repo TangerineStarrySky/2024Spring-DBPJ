@@ -3,69 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>订单确认</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .order-details {
-            margin-bottom: 20px;
-        }
-        .order-item {
-            margin-bottom: 10px;
-        }
-        .order-item label {
-            display: inline-block;
-            width: 150px;
-            font-weight: bold;
-        }
-        .order-item span {
-            display: inline-block;
-            margin-left: 10px;
-        }
-        .ticket-info {
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .ticket-info h3 {
-            margin-top: 0;
-        }
-        .form-group {
-            margin-bottom: 5px;
-        }
-        .form-group label {
-            display: inline-block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-group input[type="number"] {
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button[type="submit"]:hover {
-            background-color: #4cae4c;
-        }
-        .choose{
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
 </head>
 <body>
+    <div class="navbar">
+        <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
+
+        {% if user.user_id == 1 %}
+            <a href="{% url 'box_office' %}">票房统计</a>
+            <a href="{% url 'score' %}">评分统计</a>
+        {% endif %}
+
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
+
     <div class="container">
         <h1>订单确认及选座</h1>
         <div class="order-details">

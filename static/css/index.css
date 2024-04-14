@@ -1,13 +1,16 @@
 h2{
-  font-size: 40px;
+  font-size: 50px;
   color: #ff3a3a;
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
+  letter-spacing: 10px;
 }
 
-body{
-  background-color: rgba(241, 82, 24, 0.32);
+body {
+  background-size: cover; /* 背景图片铺满整个页面 */
+  background-position: center; /* 居中对齐 */
+  background-attachment: fixed; /* 固定背景，防止滚动 */
 }
 
 * {

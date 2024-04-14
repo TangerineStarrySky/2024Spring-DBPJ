@@ -7,11 +7,12 @@ body {
 }
 .container {
     max-width: 800px;
+    width: 100%;
+    padding: 40px;
     margin: 80px auto;
-    padding: 20px;
-    background-color: rgba(79, 248, 55, 0.13);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right top, #FFFACD, #FFDAB9); /* 使用渐变背景色 */
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 h2 {
     text-align: center;

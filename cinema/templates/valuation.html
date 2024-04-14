@@ -3,61 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>电影评价</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .rating-buttons {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .rating-button {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #ddd;
-            background-color: #fff;
-            text-align: center;
-            line-height: 30px;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-        .rating-button:hover {
-            background-color: #4cae4c;
-        }
-        .chosen{
-            background-color: #4cae4c;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        form input[type="submit"] {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        form input[type="submit"]:hover {
-            background-color: #4cae4c;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/valuation.css' %}">
 </head>
 <body>
+    <div class="navbar">
+        <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
+
+        {% if user.user_id == 1 %}
+            <a href="{% url 'box_office' %}">票房统计</a>
+            <a href="{% url 'score' %}">评分统计</a>
+        {% endif %}
+
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
+
     <div class="container">
         <h1>请为电影打分: {{ movie.movie_name }}</h1>
         <div class="rating-buttons">
