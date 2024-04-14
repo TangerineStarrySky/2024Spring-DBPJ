@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>视成影院</title>
+    {% load static %}
+    <style>
+        body{
+            background-image: url({% static 'images/welcome/welcome_bgi.jpg' %});
+            background-size: cover; /* 背景图片铺满整个页面 */
+            background-attachment: fixed; /* 固定背景，防止滚动 */
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
 </head>
 <body>
-    <h2>欢迎来到视成影院</h2>
-    <hr>
-    <a href="{% url 'register' %}">用户注册</a>
-    <a href="{% url 'login' %}">用户登录</a>
+    <div class="container">
+        <h2>视成影院</h2>
+        <div class="links">
+            <a href="{% url 'register' %}" class="button">用户注册</a>
+            <a href="{% url 'login' %}" class="button">用户登录</a>
+        </div>
+    </div>
 
     {% if messages %}
         <script>
