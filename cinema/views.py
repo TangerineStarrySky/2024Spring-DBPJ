@@ -54,19 +54,47 @@ def buy(request, user_id, movie_id, room_id):
     room = ScreeningRoom.objects.filter(pk=room_id).first()
     timestamp = int(time.time())
     next_1h = timestamp - timestamp % 3600 + 3600  # 下一个1小时整的时间戳
-    ticket, created = Ticket.objects.get_or_create(
+
+    # 先查找有无未付款订单 若有 则不再生成新订单
+    existing_ticket = Ticket.objects.filter(
         user_id=user_id,
         movie_id=movie_id,
         room_id=room_id,
-        paytime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(timestamp)),
         showtime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(next_1h)),
-        price=room.price,
-        seat_id=-1,  # 未选座
-        evaluation=-1  # 未评分
-    )
+        paystatus=False
+    ).first()
+    # 如果存在5分钟之内未付款或退票的订单 就使用旧订单
+    if existing_ticket:
+        date_string = existing_ticket.paytime
+        date_format = "%Y-%m-%d %H:%M:%S"
+        datetime_obj = datetime.strptime(date_string, date_format)
+        timestamp2 = datetime_obj.timestamp()
+        if timestamp < timestamp2 + 300:
+            ticket = existing_ticket
+        else:
+            ticket, created = Ticket.objects.get_or_create(
+                user_id=user_id,
+                movie_id=movie_id,
+                room_id=room_id,
+                paytime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(timestamp)),
+                showtime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(next_1h)),
+                price=room.price,
+                seat_id=-1,  # 未选座
+                evaluation=-1  # 未评分
+            )
+    else:
+        ticket, created = Ticket.objects.get_or_create(
+            user_id=user_id,
+            movie_id=movie_id,
+            room_id=room_id,
+            paytime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(timestamp)),
+            showtime=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(next_1h)),
+            price=room.price,
+            seat_id=-1,  # 未选座
+            evaluation=-1  # 未评分
+        )
     seat_list = Ticket.objects.filter(room_id=ticket.room_id, movie_id=ticket.movie_id,
                                       showtime=ticket.showtime, paystatus=True).values_list('seat_id')
-
     return render(request, 'buy.html',
                   {'seat_list': seat_list, 'ticket': ticket, 'movie': movie, 'user': user, 'room': room})
 
