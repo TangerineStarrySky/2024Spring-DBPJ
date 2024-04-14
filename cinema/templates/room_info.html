@@ -24,6 +24,7 @@
     </div>
 
     <div class="container">
+        <a class="return" href="{% url 'movieinfo' user_id movie_id %}">返回</a>
         <h2>放映厅信息</h2>
         <ul>
             {% for room in rooms %}

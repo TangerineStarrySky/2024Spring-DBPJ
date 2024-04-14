@@ -17,11 +17,29 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+
+a.return{
+    float: left;
+    margin-top: 15px;
+    margin-left: 15px;
+    color: rgba(236, 110, 12, 0.95);
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.return:hover{
+    color: rgb(245, 81, 21);
+}
+
 h2 {
+    text-align: center;
     color: #d35400; /* 暖色系强调颜色 */
     margin-bottom: 20px;
     font-size: 2.5rem; /* 增大字体大小 */
+    clear: both;
 }
+
 .showinfo a{
     text-decoration: none;
 }

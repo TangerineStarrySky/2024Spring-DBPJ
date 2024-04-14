@@ -24,6 +24,7 @@
     </div>
 
     <div class="container">
+        <a class="return" href="{% url 'movies' user_id %}">返回</a>
         <div class="showinfo">
             <h2>电影详情</h2>
             <a href="{% url 'showinfo' user_id movie.movie_id %}">查看已确认的放映信息</a>
