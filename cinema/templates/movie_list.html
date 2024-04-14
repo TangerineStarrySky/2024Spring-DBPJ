@@ -3,20 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>电影列表</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/movie_list.css' %}">
 </head>
 <body>
-    <h3>电影列表</h3>
-    <hr>
+    <div class="navbar">
+        <a class="cinema_name" href="{% url 'index' %}?user_id={{ user.user_id }}">视成影院</a>
+        <a href="{% url 'ranking' user.user_id %}">电影排行榜</a>
+        <a href="{% url 'movies' user.user_id %}">所有电影</a>
+        <a href="{% url 'history' user.user_id %}">历史订单</a>
 
-    <ol>
-        {% for movie in movies %}
-            <li>
-                <a href="{% url 'movieinfo' user_id movie.movie_id %}">
-                    {{ movie.movie_name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ol>
+        {% if user.user_id == 1 %}
+            <a href="{% url 'box_office' %}">票房统计</a>
+            <a href="{% url 'score' %}">评分统计</a>
+        {% endif %}
 
+        <a href="{% url 'welcome' %}">退出登录</a>
+        <div class="username">用户：{{ user.username }}</div>
+    </div>
+
+    <div class="container">
+        <h3>电影列表</h3>
+        <hr>
+        <ol class="movie-list">
+            {% for movie in movies %}
+                <li>
+                <div class="wrapper">
+                    <div class="left">
+                        <div class="movie-name">{{ movie.movie_name }}</div>
+                        <div class="movie-cast">主演: {{ movie.starring }}</div>
+                    </div>
+                    <div class="right">
+                        <a href="{% url 'movieinfo' user_id movie.movie_id %}" class="purchase-button">查看详情</a>
+                    </div>
+                </div>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
 </body>
 </html>
