@@ -8,11 +8,11 @@ body {
 h2 {
     font-size: 2.5rem;
     color: #333;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 添加标题文字阴影 */
-    background: linear-gradient(to right, orange, #ef4e7b); /* 使用渐变背景色 */
-    padding: 20px; /* 增加标题内边距 */
-    border-radius: 20px; /* 增加标题边框圆角 */
-    margin-bottom: 30px; /* 增加标题下方外边距 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, orange, #ef4e7b);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
     text-align: center;
     display: flex;
     align-items: center;
@@ -25,7 +25,7 @@ h2 {
     padding: 40px;
     background-color: rgba(200, 150, 50, 0.3);
     border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 增加阴影 */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .movie-list {
@@ -35,7 +35,7 @@ h2 {
 }
 
 .movie-item {
-    margin-bottom: 30px; /* 增加电影项之间的垂直间距 */
+    margin-bottom: 30px;
     padding: 20px;
     border: 2px solid rgba(255, 105, 0, 0.3);
     border-radius: 10px;
@@ -76,7 +76,7 @@ h2 {
     width: 100px;
     height: 150px;
     object-fit: cover;
-    margin-right: 20px; /* 增加电影封面和详情之间的水平间距 */
+    margin-right: 20px;
 }
 
 .movie-details {
@@ -85,7 +85,7 @@ h2 {
 
 .movie-title {
     font-size: 24px;
-    margin-bottom: 10px; /* 增加标题和演员列表之间的垂直间距 */
+    margin-bottom: 10px;
 }
 
 .movie-cast {
@@ -96,15 +96,15 @@ h2 {
 .movie-rating {
     font-size: 20px;
     color: #f60;
-    margin-bottom: 20px; /* 增加评分和下一个电影项之间的垂直间距 */
+    margin-bottom: 20px;
 }
 
 .rank-number {
-    font-size: 5rem; /* 增加序号的字体大小 */
+    font-size: 5rem;
     font-weight: bold;
-    color: rgba(255, 105, 0, 0.5); /* 降低序号的对比度，使其作为背景 */
+    color: rgba(255, 105, 0, 0.5);
     position: absolute;
-    top: -10px; /* 调整序号的位置 */
+    top: -10px;
 }
 .container a {
     text-decoration: none;
