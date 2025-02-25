@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cinemasystem',
-        'USER': 'root',
-        'PASSWORD': '940618',
+        'USER': '(此处填入mysql用户名)',
+        'PASSWORD': '(此处填入mysql密码)',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
